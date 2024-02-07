@@ -13,8 +13,8 @@ void World_create::world_generate() {
     std::vector<GLfloat> temp{ x, y, z, render };
    
     for (int i = 0; i != 1; i++) {
-        for (int map_length = 0; map_length != 1; map_length++) {
-            for (int map_width = 0; map_width != 1; map_width++) {
+        for (int map_length = 0; map_length != 5; map_length++) {
+            for (int map_width = 0; map_width != 5; map_width++) {
                 chunk_generate(temp);
                 x += 10;
             }
@@ -74,17 +74,26 @@ void World_create::save_to_file() {
         for (const std::vector<GLfloat>& row : generated_world) {
             for (GLfloat value : row) {
             
-                if(value!=2137)file << value << ' ';
-                else {
-                    //file << "chunk:" << chunk_number;
+ 
+                if (value == 2137) {  
+                    file << "Chunk" << chunk_number;
                     chunk_number++;
+                
+                
+                }
+                else {
+                    
+                
+                    file << value << ' ';
                 }
         
             }
            
             file << '\n'; // Nowy wiersz po ka¿dym rzêdzie
+           
         }
         
+        file << "Chunk" << chunk_number;
         file.close();
        
     }

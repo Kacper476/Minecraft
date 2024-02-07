@@ -456,32 +456,42 @@ void World_render::map_update()
 
 void World_render::map_load() {
 	std::vector<std::vector<GLfloat>> temp_map;
-    std::ifstream file("world/world.txt");
-	
+	std::ifstream file("world/world.txt");
+
+	bool inDesiredRange = false;
+
 	if (file.is_open()) {
 		std::string line;
-		
-		int chuj= 0;
-		 
+
 		while (std::getline(file, line)) {
-			
-
-			std::vector<GLfloat> row;
-			std::istringstream iss(line);
-			GLfloat value;
-
-			while (iss >> value) {
-				row.push_back(value);
+			if (line.find("Chunk5") != std::string::npos) {
+				inDesiredRange = true;
+				continue;
 			}
-			temp_map.push_back(row);
-		
-			chuj++;
+			else if (line.find("Chunk6") != std::string::npos) {
+				inDesiredRange = false;
+				break;  
+			}
+
+			if (inDesiredRange) {
+				std::vector<GLfloat> row;
+				std::istringstream iss(line);
+				GLfloat value;
+
+				while (iss >> value) {
+					row.push_back(value);
+				}
+
+				temp_map.push_back(row);
+			}
 		}
-		map3d.push_back(temp_map);
+
+		if (!temp_map.empty()) {
+			map3d.push_back(temp_map);
+		}
 
 		file.close();
 	}
-	
 	else {
 		std::cerr << "Cannot open saved world" << std::endl;
 	}
