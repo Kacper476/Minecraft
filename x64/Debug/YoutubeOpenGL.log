@@ -1,2 +1,9 @@
-﻿  World_create.cpp
+﻿  World_render.cpp
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(181,47): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(184,47): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(187,47): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(190,47): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(196,47): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(202,47): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kacper\Desktop\MineRipoff\World_render.cpp(522,15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   YoutubeOpenGL.vcxproj -> C:\Users\Kacper\Desktop\MineRipoff\x64\Debug\MeineRippof.exe

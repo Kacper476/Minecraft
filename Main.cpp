@@ -72,7 +72,7 @@ int main()
 
 	
 
-	World_create CREAT;
+	//World_create CREAT;
 	World_render TESTR;
 	
 

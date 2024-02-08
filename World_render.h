@@ -4,6 +4,8 @@
 #include<glad/glad.h>
 
 #include<vector>
+#include<string>
+
 #include <memory>
 
 #include"Texture.h"
@@ -15,6 +17,7 @@
 #include"VBO.h"
 #include"EBO.h"
 #include "World_create.h"
+
 
 
 #include<glm/glm.hpp>
@@ -38,7 +41,7 @@ protected:
 	//update maps after creating/removing cube
 	void map_update();
 	//load 
-	void map_load();
+	void map_load(int chunk);
 	
 	// Generates Vertex Array Object and binds it
 	VAO VAO1, VAO2, VAO3, VAO4, VAO5, VAO6;
@@ -169,16 +172,20 @@ protected:
 	};
 
 	//cordinate of every cube
-
-
-
-
-	std::vector<std::vector<std::vector<GLfloat>>> map3d;
+	std::vector<std::vector<std::vector<GLfloat>>> map3d
+	{
+		
+	};
 
 
 	std::vector<std::vector<GLfloat>> map
 	{
 	
+	};
+
+	std::vector<int> Rendered_chunks
+	{
+	1,2,3,4
 	};
 };
 

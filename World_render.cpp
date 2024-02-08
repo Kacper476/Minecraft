@@ -1,9 +1,16 @@
 #include "World_render.h"
-
+#include "string"
 World_render::World_render() {
 
 
-	map_load();
+	map_load(0);
+	map_load(2);
+
+	map_load(6);
+
+	map_load(11);
+	map_load(16);
+
 	map_transform();
 
 
@@ -454,86 +461,102 @@ void World_render::map_update()
 
 }
 
-void World_render::map_load() {
-	std::vector<std::vector<GLfloat>> temp_map;
-	std::ifstream file("world/world.txt");
+void World_render::map_load(int chunk) {
+	
+	
+		std::vector<std::vector<GLfloat>> temp_map;
+		std::ifstream file("world/world.txt");
 
-	bool inDesiredRange = false;
 
-	if (file.is_open()) {
-		std::string line;
 
-		while (std::getline(file, line)) {
-			if (line.find("Chunk5") != std::string::npos) {
-				inDesiredRange = true;
-				continue;
-			}
-			else if (line.find("Chunk6") != std::string::npos) {
-				inDesiredRange = false;
-				break;  
-			}
+		std::string begin_chunk = "Chunk";
+		begin_chunk += std::to_string(chunk);
+		chunk++;
+		std::string end_chunk = "Chunk";
+		end_chunk += std::to_string(chunk);
 
-			if (inDesiredRange) {
-				std::vector<GLfloat> row;
-				std::istringstream iss(line);
-				GLfloat value;
+		bool inDesiredRange = false;
 
-				while (iss >> value) {
-					row.push_back(value);
+		if (file.is_open()) {
+			std::string line;
+
+			while (std::getline(file, line)) {
+				if (line.find(begin_chunk) != std::string::npos) {
+					inDesiredRange = true;
+					continue;
+				}
+				else if (line.find(end_chunk) != std::string::npos) {
+					inDesiredRange = false;
+					break;
 				}
 
-				temp_map.push_back(row);
+				if (inDesiredRange) {
+					std::vector<GLfloat> row;
+					std::istringstream iss(line);
+					GLfloat value;
+
+					while (iss >> value) {
+						row.push_back(value);
+					}
+
+					temp_map.push_back(row);
+				}
 			}
-		}
 
-		if (!temp_map.empty()) {
-			map3d.push_back(temp_map);
-		}
 
-		file.close();
+
+			if (!temp_map.empty()) {
+				map3d.push_back(temp_map);
+			}
+
+			file.close();
+		}
+		else {
+			std::cerr << "Cannot open saved world" << std::endl;
+		}
 	}
-	else {
-		std::cerr << "Cannot open saved world" << std::endl;
-	}
-}
+
 
 void World_render::map_transform() {
+	
+	int map_size = map3d.size();
+	for (int i = 0; i != map_size; i++) {
+	
 	int wall_number = 0;
 	int cube_number = 0;
 
 
-
-
-	while (cube_number != map3d[0].size()) {
-		while (wall_number != 6) {
-			std::vector<GLfloat > temp_wall = start_cube[wall_number];
-
-			temp_wall[0] += map3d[0][cube_number][0];
-			temp_wall[1] += map3d[0][cube_number][1];
-			temp_wall[2] += map3d[0][cube_number][2];
-
-
-			temp_wall[8] += map3d[0][cube_number][0];
-			temp_wall[9] += map3d[0][cube_number][1];
-			temp_wall[10] += map3d[0][cube_number][2];
-
-			temp_wall[16] += map3d[0][cube_number][0];
-			temp_wall[17] += map3d[0][cube_number][1];
-			temp_wall[18] += map3d[0][cube_number][2];
-
-			temp_wall[24] += map3d[0][cube_number][0];
-			temp_wall[25] += map3d[0][cube_number][1];
-			temp_wall[26] += map3d[0][cube_number][2];
-
-
-
-
-			Za_warudo[wall_number].insert(Za_warudo[wall_number].end(), temp_wall.begin(), temp_wall.end());
-			wall_number++;
-		}
-		indices_add(map3d[0][cube_number][3]);
-		wall_number = 0;
-		cube_number++;
-	}
 	
+		while (cube_number != map3d[i].size()) {
+			while (wall_number != 6) {
+				std::vector<GLfloat > temp_wall = start_cube[wall_number];
+
+				temp_wall[0] += map3d[i][cube_number][0];
+				temp_wall[1] += map3d[i][cube_number][1];
+				temp_wall[2] += map3d[i][cube_number][2];
+
+
+				temp_wall[8] += map3d[i][cube_number][0];
+				temp_wall[9] += map3d[i][cube_number][1];
+				temp_wall[10] += map3d[i][cube_number][2];
+
+				temp_wall[16] += map3d[i][cube_number][0];
+				temp_wall[17] += map3d[i][cube_number][1];
+				temp_wall[18] += map3d[i][cube_number][2];
+
+				temp_wall[24] += map3d[i][cube_number][0];
+				temp_wall[25] += map3d[i][cube_number][1];
+				temp_wall[26] += map3d[i][cube_number][2];
+
+
+
+
+				Za_warudo[wall_number].insert(Za_warudo[wall_number].end(), temp_wall.begin(), temp_wall.end());
+				wall_number++;
+			}
+			indices_add(map3d[i][cube_number][3]);
+			wall_number = 0;
+			cube_number++;
+		}
+	}
 }
