@@ -37,10 +37,10 @@ void World_create::chunk_generate(std::vector<GLfloat> temp)
     {
         
 
-        for (int j = 0; j != 10; j++) {
-            for (int i = 0; i != 10; i++) {
+        for (int j = 0; j != 16; j++) {
+            for (int i = 0; i != 16; i++) {
 
-                if (k == 4)local_render = 1.0f;
+                local_render = 1.0f;
                 temp[0] = local_x;
                 temp[1] = local_y;
                 temp[2] = local_z;

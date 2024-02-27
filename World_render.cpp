@@ -1,16 +1,10 @@
 #include "World_render.h"
 #include "string"
+
 World_render::World_render() {
 
 
 	map_load(0);
-	map_load(2);
-
-	map_load(6);
-
-	map_load(11);
-	map_load(16);
-
 	map_transform();
 
 
@@ -25,6 +19,70 @@ World_render::World_render() {
 
 	dirt = std::make_unique<Texture>("textures/dirt.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	dirt->texUnit(*shaderProgram, "tex2", 2);
+
+	VAO1.Bind();
+
+	// links Vertex Buffer Object to vertices
+	VBO1.link(Za_warudo[0], sizeof(Za_warudo[0]));
+
+	// links Element Buffer Object to indices
+	EBO1.Link(indices, sizeof(indices));
+
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+
+
+
+	VAO2.Bind();
+	VBO2.link(Za_warudo[1], sizeof(Za_warudo[1]));
+	EBO2.Link(indices, sizeof(indices));
+	VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO2.LinkAttrib(VBO2, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO2.LinkAttrib(VBO2, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	VAO3.Bind();
+	VBO3.link(Za_warudo[2], sizeof(Za_warudo[2]));
+	EBO3.Link(indices, sizeof(indices));
+	VAO3.LinkAttrib(VBO3, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO3.LinkAttrib(VBO3, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO3.LinkAttrib(VBO3, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	VAO4.Bind();
+	VBO4.link(Za_warudo[3], sizeof(Za_warudo[3]));
+	EBO4.Link(indices, sizeof(indices));
+	VAO4.LinkAttrib(VBO4, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO4.LinkAttrib(VBO4, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO4.LinkAttrib(VBO4, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	VAO5.Bind();
+	VBO5.link(Za_warudo[4], sizeof(Za_warudo[4]));
+	EBO5.Link(indices, sizeof(indices));
+	VAO5.LinkAttrib(VBO5, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO5.LinkAttrib(VBO5, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO5.LinkAttrib(VBO5, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+	VAO6.Bind();
+	VBO6.link(Za_warudo[5], sizeof(Za_warudo[5]));
+	EBO6.Link(indices, sizeof(indices));
+	VAO6.LinkAttrib(VBO6, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO6.LinkAttrib(VBO6, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO6.LinkAttrib(VBO6, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
+
+	// Unbind all to prevent accidentally modifying them
+
+
+};
+
+
+
+void World_render::map_update()
+{
+
+
 
 	VAO1.Bind();
 
@@ -103,7 +161,10 @@ World_render::World_render() {
 	VBO6.Unbind();
 	EBO6.Unbind();
 
-};
+
+
+
+}
 
 World_render::~World_render()
 {
@@ -345,125 +406,14 @@ void World_render::cube_add(const glm::vec3& position, const glm::vec3& cameraDi
 
 
 
-void World_render::map_update()
-{
-	
-	VAO1.Delete();
-	VBO1.Delete();
-	EBO1.Delete();
 
-	VAO2.Delete();
-	VBO2.Delete();
-	EBO2.Delete();
-
-	VAO3.Delete();
-	VBO3.Delete();
-	EBO3.Delete();
-
-	VAO4.Delete();
-	VBO4.Delete();
-	EBO4.Delete();
-
-	VAO5.Delete();
-	VBO5.Delete();
-	EBO5.Delete();
-
-	VAO6.Delete();
-	VBO6.Delete();
-	EBO6.Delete();
-	
-	// Generates Vertex Array Object and binds it
-	VAO VAO1, VAO2, VAO3, VAO4, VAO5, VAO6;
-
-	// Generates Vertex Buffer Object
-	VBO VBO1, VBO2, VBO3, VBO4, VBO5, VBO6;
-	// Generates Element Buffer Object
-	EBO EBO1, EBO2, EBO3, EBO4, EBO5, EBO6;
-	
-	VAO1.Bind();
-
-	// links Vertex Buffer Object to vertices
-	VBO1.link(Za_warudo[0], sizeof(Za_warudo[0]));
-
-	// links Element Buffer Object to indices
-	EBO1.Link(indices, sizeof(indices));
-
-	// Links VBO attributes such as coordinates and colors to VAO
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-
-
-
-	VAO2.Bind();
-	VBO2.link(Za_warudo[1], sizeof(Za_warudo[1]));
-	EBO2.Link(indices, sizeof(indices));
-	VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-	VAO2.LinkAttrib(VBO2, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO2.LinkAttrib(VBO2, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-	VAO3.Bind();
-	VBO3.link(Za_warudo[2], sizeof(Za_warudo[2]));
-	EBO3.Link(indices, sizeof(indices));
-	VAO3.LinkAttrib(VBO3, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-	VAO3.LinkAttrib(VBO3, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO3.LinkAttrib(VBO3, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-	VAO4.Bind();
-	VBO4.link(Za_warudo[3], sizeof(Za_warudo[3]));
-	EBO4.Link(indices, sizeof(indices));
-	VAO4.LinkAttrib(VBO4, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-	VAO4.LinkAttrib(VBO4, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO4.LinkAttrib(VBO4, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-	VAO5.Bind();
-	VBO5.link(Za_warudo[4], sizeof(Za_warudo[4]));
-	EBO5.Link(indices, sizeof(indices));
-	VAO5.LinkAttrib(VBO5, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-	VAO5.LinkAttrib(VBO5, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO5.LinkAttrib(VBO5, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-	VAO6.Bind();
-	VBO6.link(Za_warudo[5], sizeof(Za_warudo[5]));
-	EBO6.Link(indices, sizeof(indices));
-	VAO6.LinkAttrib(VBO6, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
-	VAO6.LinkAttrib(VBO6, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO6.LinkAttrib(VBO6, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-
-
-	// Unbind all to prevent accidentally modifying them
-	VAO1.Unbind();
-	VBO1.Unbind();
-	EBO1.Unbind();
-
-	VAO2.Unbind();
-	VBO2.Unbind();
-	EBO2.Unbind();
-
-	VAO3.Unbind();
-	VBO3.Unbind();
-	EBO3.Unbind();
-
-	VAO4.Unbind();
-	VBO4.Unbind();
-	EBO4.Unbind();
-
-	VAO5.Unbind();
-	VBO5.Unbind();
-	EBO5.Unbind();
-
-	VAO6.Unbind();
-	VBO6.Unbind();
-	EBO6.Unbind();
-
-
-
-}
 
 void World_render::map_load(int chunk) {
-	
-	
+
+
+	map3d.clear();
+	map.clear();
+
 		std::vector<std::vector<GLfloat>> temp_map;
 		std::ifstream file("world/world.txt");
 
@@ -514,10 +464,15 @@ void World_render::map_load(int chunk) {
 		else {
 			std::cerr << "Cannot open saved world" << std::endl;
 		}
+
+		map_update();
+		map_transform();
+		
 	}
 
 
 void World_render::map_transform() {
+	
 	
 	int map_size = map3d.size();
 	for (int i = 0; i != map_size; i++) {
@@ -558,5 +513,16 @@ void World_render::map_transform() {
 			wall_number = 0;
 			cube_number++;
 		}
+
 	}
+	
+	
+
+}
+
+void World_render::clear_map(){
+
+
+
+
 }

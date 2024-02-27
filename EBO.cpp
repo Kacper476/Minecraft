@@ -9,6 +9,7 @@ EBO::EBO()
 }
 
 
+
 void EBO::Link(std::vector<GLuint> indices, GLsizeiptr size) {
 
 

@@ -15,7 +15,7 @@
 
 #include"World_create.h"
 #include"World_render.h"
-
+#include"ProceduralGen.h"
 
 #include"shaderClass.h"
 #include"VAO.h"
@@ -73,6 +73,11 @@ int main()
 	
 
 	//World_create CREAT;
+
+	ProceduralGen Gen;
+
+	Gen.load_proceduralmap();
+
 	World_render TESTR;
 	
 

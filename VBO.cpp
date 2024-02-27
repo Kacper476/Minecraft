@@ -13,6 +13,7 @@ VBO::VBO(){
 
 
 
+
 //links Vertex Buffer Object to vertices
 void VBO::link(std::vector<GLfloat> vertices, GLsizeiptr size)
 {

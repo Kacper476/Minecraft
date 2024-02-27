@@ -31,8 +31,19 @@ public:
 	void shader_activate();
 	void cube_remove(const glm::vec3& position, const glm::vec3& cameraDirection);
 	void cube_add(const glm::vec3& position, const glm::vec3& cameraDirection);
+	
+	//load chunk
+	void map_load(int chunk);
+	
 	GLuint get_shaderid();
 	std::unique_ptr<Shader> shaderProgram = nullptr;
+
+
+	std::vector<int> Rendered_chunks
+	{
+	1,3
+	};
+
 protected:
 	//transform cube XYZ to full vector of coordinates  
 	void map_transform();
@@ -40,8 +51,8 @@ protected:
 	void indices_add(GLfloat check_if_render);
 	//update maps after creating/removing cube
 	void map_update();
-	//load 
-	void map_load(int chunk);
+	
+	void clear_map();
 	
 	// Generates Vertex Array Object and binds it
 	VAO VAO1, VAO2, VAO3, VAO4, VAO5, VAO6;
@@ -62,6 +73,45 @@ protected:
 
 	//vector of all cubes
 	std::vector<std::vector<GLfloat>> Za_warudo{ //is this jojo refference?
+
+
+
+		//back of cube
+		{
+			//     COORDINATES     /        COLORS      /   TexCoord  //
+
+			// 0.0f,  0.0f, 0.0f,     1.0f, 0.0f, 0.0f,	0.0f, 0.0f, // Lower left corner
+			// 0.0f,  1.0f, 0.0f,     0.0f, 1.0f, 0.0f,	0.0f, 1.0f, // Upper left corner
+			// 1.0f,  1.0f, 0.0f,     0.0f, 0.0f, 1.0f,	1.0f, 1.0f, // Upper right corner
+			// 1.0f,  0.0f, 0.0f,     1.0f, 1.0f, 1.0f,	1.0f, 0.0f,  // Lower right corner
+		},
+
+		//front of cube 
+		{
+		},
+
+
+		//left of cube
+		{
+		},
+
+		//right of cube 
+	   {
+	   },
+
+	   //top of cube 
+	   {
+	   },
+
+	   //bot of cube 
+	   {
+	   }
+
+
+
+	};
+
+	std::vector<std::vector<GLfloat>> clear_copy{ //is this jojo refference?
 
 
 
@@ -183,10 +233,7 @@ protected:
 	
 	};
 
-	std::vector<int> Rendered_chunks
-	{
-	1,2,3,4
-	};
+	
 };
 
 
