@@ -1,28 +1,27 @@
-#ifndef PROCEDURALGEN_CLASS_H
-#define PROCEDURALGEN_CLASS_H
-#include <cmath>
-#include <algorithm>
-#include <ctime>
-#include <string>
-#include <fstream>
-#include <iostream>
-#include<vector>
+#ifndef PROCEDURAL_GEN_H
+#define PROCEDURAL_GEN_H
+
+#include <vector>
+constexpr int ChunkSize = 16;
 
 class ProceduralGen {
 public:
     ProceduralGen();
-
-    double noise(double x, double y, double z);
-    void load_proceduralmap();
-
+    int noise(double x, double y, double z);
 
 private:
-    int p[512];
-    std::vector<int> map_height;
+    
+    
+    std::vector<int> p;
+    std::vector<int> gen_map;
+    std::vector<std::vector<int> > cord_3d;
+
+
     double fade(double t);
     double lerp(double t, double a, double b);
     double grad(int hash, double x, double y, double z);
-    void gen_map_height();
-
+    void convert_to_cord3d();
+    void saveToFile();
 };
-#endif
+
+#endif // PROCEDURAL_GEN_H

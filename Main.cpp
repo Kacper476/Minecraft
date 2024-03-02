@@ -76,7 +76,7 @@ int main()
 
 	ProceduralGen Gen;
 
-	Gen.load_proceduralmap();
+	
 
 	World_render TESTR;
 	
